@@ -3,14 +3,13 @@ import styles from "../../styles/News.module.css";
 import { useState } from "react";
 
 export const Index=({articles})=>{
-  const [article, setarticle] = useState(articles.slice(0, 100));
+  const [article, setarticle] = useState(articles?.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 10;
   const pagesVisited = pageNumber * articlePerPage;
 
-  const displayarticle = article
-    .slice(pagesVisited, pagesVisited + articlePerPage)
+  const displayarticle = article?.slice(pagesVisited, pagesVisited + articlePerPage)
     .map((news, index) => {
       return (
         <div key={index} 
@@ -35,7 +34,7 @@ export const Index=({articles})=>{
       );
     });
 
-  const pageCount = Math.ceil(article.length / articlePerPage);
+  const pageCount = Math.ceil(article?.length / articlePerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
