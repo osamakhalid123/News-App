@@ -30,7 +30,7 @@ export const Index = ({ articles }) => {
       );
     });
 
-  const pageCount = Math.ceil(article.length / articlePerPage);
+  const pageCount = Math.ceil(article?.length / articlePerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
