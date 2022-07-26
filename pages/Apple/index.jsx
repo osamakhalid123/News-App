@@ -61,7 +61,8 @@ export const Index = ({ articles }) => {
 
 export const getServerSideProps = async () => {
   const apiResponse = await fetch(
-    `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=${process.env.URL_KEY}`
+    `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=35c3878043074acdbc44b69e156687db`
+    // `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=${process.env.URL_KEY}`
   );
   const res = await apiResponse.json();
   const { articles } = res;
