@@ -70,7 +70,7 @@ export const getServerSideProps = async () => {
     };
   } else {
     const apiResponse = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey35c3878043074acdbc44b69e156687db`
+      `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=35c3878043074acdbc44b69e156687db`
     );
     const res = await apiResponse.json();
     const { articles } = res;

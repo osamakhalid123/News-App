@@ -59,15 +59,26 @@ export const WallStreet = ({ articles }) => {
 };
 
 export const getServerSideProps = async () => {
-  const apiResponse = await fetch(
-    `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=${process.env.URL_KEY}
-    `
-  );
-  const res = await apiResponse.json();
-  const { articles } = res;
-  return {
-    props: { articles },
-  };
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+    const apiResponse = await fetch(
+      `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=${process.env.URL_KEY}
+            `
+    );
+    const res = await apiResponse.json();
+    const { articles } = res;
+    return {
+      props: { articles },
+    };
+  } else {
+    const apiResponse = await fetch(
+      `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=35c3878043074acdbc44b69e156687db`
+    );
+    const res = await apiResponse.json();
+    const { articles } = res;
+    return {
+      props: { articles },
+    };
+  }
 };
 
 export default WallStreet;
