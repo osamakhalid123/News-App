@@ -2,15 +2,15 @@ import ReactPaginate from "react-paginate";
 import styles from "../../styles/News.module.css";
 import { useState } from "react";
 
-export const Index = ({ articles }) => {
-  const [article, setarticle] = useState(articles.slice(0, 100));
+export const Business = ({ articles }) => {
+  const [article, setarticle] = useState(articles?.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 10;
   const pagesVisited = pageNumber * articlePerPage;
 
   const displayarticle = article
-    .slice(pagesVisited, pagesVisited + articlePerPage)
+    ?.slice(pagesVisited, pagesVisited + articlePerPage)
     .map((news, index) => {
       return (
         <div
@@ -31,7 +31,7 @@ export const Index = ({ articles }) => {
       );
     });
 
-  const pageCount = Math.ceil(article.length / articlePerPage);
+  const pageCount = Math?.ceil(article.length / articlePerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -58,15 +58,26 @@ export const Index = ({ articles }) => {
 };
 
 export const getServerSideProps = async () => {
-  const apiResponse = await fetch(
-    `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${process.env.URL_KEY}
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+    const apiResponse = await fetch(
+      `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${process.env.URL_KEY}
     `
-  );
-  const res = await apiResponse.json();
-  const { articles } = res;
-  return {
-    props: { articles },
-  };
+    );
+    const res = await apiResponse.json();
+    const { articles } = res;
+    return {
+      props: { articles },
+    };
+  } else {
+    const apiResponse = await fetch(
+      `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey35c3878043074acdbc44b69e156687db`
+    );
+    const res = await apiResponse.json();
+    const { articles } = res;
+    return {
+      props: { articles },
+    };
+  }
 };
 
-export default Index;
+export default Business;

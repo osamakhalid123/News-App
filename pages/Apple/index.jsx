@@ -2,19 +2,20 @@ import ReactPaginate from "react-paginate";
 import styles from "../../styles/News.module.css";
 import { useState } from "react";
 
-export const Index = ({ articles }) => {
+export const Apple = ({ articles }) => {
   const [article, setarticle] = useState(articles?.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 10;
   const pagesVisited = pageNumber * articlePerPage;
 
-  const displayarticle = article?.slice(pagesVisited, pagesVisited + articlePerPage)
+  const displayarticle = article
+    ?.slice(pagesVisited, pagesVisited + articlePerPage)
     .map((news, index) => {
       return (
         <div
           key={index}
-          onClick={() => (window.open(`${news.url}`))}
+          onClick={() => window.open(`${news.url}`)}
           style={{
             backgroundImage: `url(${news.urlToImage})`,
             backgroundPosition: "center",
@@ -38,10 +39,7 @@ export const Index = ({ articles }) => {
 
   return (
     <div>
-      <div className={styles.container}>
-        
-        {displayarticle}
-        </div>
+      <div className={styles.container}>{displayarticle}</div>
       <div className={styles.pagination}>
         <ReactPaginate
           previousLabel={"Previous"}
@@ -60,15 +58,26 @@ export const Index = ({ articles }) => {
 };
 
 export const getServerSideProps = async () => {
-  const apiResponse = await fetch(
-    `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=35c3878043074acdbc44b69e156687db`
-    // `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=${process.env.URL_KEY}`
-  );
-  const res = await apiResponse.json();
-  const { articles } = res;
-  return {
-    props: { articles },
-  };
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+    const apiResponse = await fetch(
+      `https://newsapi.org/v2/everything?q=apple&sortBy=popularity&apiKey=${process.env.URL_KEY}`
+      // `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=${process.env.URL_KEY}`
+    );
+    const res = await apiResponse.json();
+    const { articles } = res;
+    return {
+      props: { articles },
+    };
+  } else {
+    const apiResponse = await fetch(
+      `https://newsapi.org/v2/everything?q=apple&sortBy=popularity&apiKey=35c3878043074acdbc44b69e156687db`
+    );
+    const res = await apiResponse.json();
+    const { articles } = res;
+    return {
+      props: { articles },
+    };
+  }
 };
 
-export default Index;
+export default Apple;

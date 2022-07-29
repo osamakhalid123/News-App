@@ -2,7 +2,7 @@ import ReactPaginate from "react-paginate";
 import styles from "../../styles/News.module.css";
 import { useState } from "react";
 
-export const Index = ({ articles }) => {
+export const Tesla = ({ articles }) => {
   const [article, setarticle] = useState(articles?.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -81,4 +81,4 @@ export const getServerSideProps = async () => {
   }
 };
 
-export default Index;
+export default Tesla;
