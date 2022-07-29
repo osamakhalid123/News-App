@@ -4,7 +4,7 @@ import styles from "../../styles/News.module.css";
 import { useState } from "react";
 
 export const WallStreet = ({ articles }) => {
-  const [article, setarticle] = useState(articles.slice(0, 100));
+  const [article, setarticle] = useState(articles?.slice(0, 100));
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 10;

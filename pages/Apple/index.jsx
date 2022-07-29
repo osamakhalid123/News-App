@@ -31,7 +31,7 @@ export const Apple = ({ articles }) => {
       );
     });
 
-  const pageCount = Math.ceil(article?.length / articlePerPage);
+  const pageCount = Math?.ceil(article?.length / articlePerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -61,7 +61,6 @@ export const getServerSideProps = async () => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
     const apiResponse = await fetch(
       `https://newsapi.org/v2/everything?q=apple&sortBy=popularity&apiKey=${process.env.URL_KEY}`
-      // `https://newsapi.org/v2/everything?q=apple&from=2022-07-23&to=2022-07-23&sortBy=popularity&apiKey=${process.env.URL_KEY}`
     );
     const res = await apiResponse.json();
     const { articles } = res;
